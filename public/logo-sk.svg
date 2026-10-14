@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <!-- Background transparent / white canvas -->
+  <defs>
+    <linearGradient id="skBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(50, 40)">
+    <!-- SK Monogram Mark -->
+    <!-- S upper curve and central spine -->
+    <path
+      d="M 60 70 
+         C 30 70 10 95 10 135 
+         C 10 170 35 195 75 200 
+         L 135 205 
+         C 160 207 175 218 175 235 
+         C 175 255 155 270 120 270 
+         L 35 270 
+         C 20 270 10 260 10 245 
+         L 0 245 
+         C 0 285 30 300 70 300 
+         L 135 300 
+         C 185 300 215 270 215 225 
+         C 215 185 185 165 140 160 
+         L 85 155 
+         C 60 152 45 140 45 125 
+         C 45 105 65 95 95 95 
+         L 170 95 
+         C 185 95 195 105 195 120 
+         L 235 120 
+         C 235 80 205 70 160 70 
+         Z"
+      fill="#0B192C"
+    />
+
+    <!-- K Upper Diagonal Leaf / Petal in Vibrant Blue -->
+    <path
+      d="M 195 80 
+         C 195 80 240 50 275 80 
+         C 290 95 285 130 250 145 
+         C 220 158 190 125 195 80 
+         Z"
+      fill="url(#skBlue)"
+    />
+
+    <!-- K Lower Leg in Navy -->
+    <path
+      d="M 155 180 
+         L 245 285 
+         C 255 297 265 300 280 300 
+         L 295 300 
+         L 190 170 
+         Z"
+      fill="#0B192C"
+    />
+  </g>
+
+  <!-- Wordmark: Semoga Kerja -->
+  <g transform="translate(250, 410)" text-anchor="middle">
+    <text
+      x="0"
+      y="0"
+      font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+      font-size="64"
+      font-weight="900"
+      letter-spacing="-1.5"
+      fill="#0B192C"
+    >
+      Semoga Kerja
+    </text>
+    <!-- Dot for letter 'j' in blue petal shape -->
+    <circle cx="95" cy="-56" r="6.5" fill="#2563EB" />
+  </g>
+</svg>

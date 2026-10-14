@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == '2207016087@student.walisongo.ac.id' ||
+        request.auth.token.email == 'muzaydzuhri@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Jobs collection
+    match /jobs/{jobId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Applications collection:
+    // - Creation: candidates can submit application
+    // - Read: HRD can read all, candidate can read their own applications
+    // - Update/Delete: HRD only
+    match /applications/{applicationId} {
+      allow create: if request.resource.data.referenceNumber is string &&
+                       request.resource.data.jobId is string &&
+                       request.resource.data.fullName is string &&
+                       request.resource.data.email is string;
+      allow read: if isAdmin() || (isSignedIn() && resource.data.candidateUid == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    // Candidate profiles
+    match /candidates/{candidateId} {
+      allow read, write: if isSignedIn() && (request.auth.uid == candidateId || isAdmin());
+    }
+
+    // Interview schedules: restricted to HR staff, candidate can read own interview
+    match /interview_schedules/{scheduleId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Email delivery logs
+    match /email_delivery_logs/{logId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Audit logs
+    match /audit_logs/{auditId} {
+      allow read, write: if isAdmin();
+    }
+
+    // System settings
+    match /system_settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Admin identities
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+  }
+}

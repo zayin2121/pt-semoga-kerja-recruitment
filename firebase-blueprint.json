@@ -1,0 +1,197 @@
+{
+  "entities": {
+    "Job": {
+      "title": "Job",
+      "description": "Lowongan pekerjaan yang dibuka oleh PT Semoga Kerja",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 150 },
+        "department": { "type": "string", "maxLength": 100 },
+        "location": { "type": "string", "maxLength": 100 },
+        "type": { "type": "string", "enum": ["Full-time", "Contract", "Internship", "Part-time"] },
+        "description": { "type": "string", "maxLength": 5000 },
+        "responsibilities": { "type": "string", "maxLength": 5000 },
+        "requirementsMandatory": { "type": "string", "maxLength": 5000 },
+        "requirementsOptional": { "type": "string", "maxLength": 5000 },
+        "screeningCriteria": { "type": "string", "maxLength": 5000 },
+        "status": { "type": "string", "enum": ["draft", "published", "closed", "archived"] },
+        "deadline": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "createdBy": { "type": "string", "maxLength": 100 },
+        "isDemo": { "type": "boolean" }
+      },
+      "required": ["title", "department", "location", "type", "description", "status"]
+    },
+    "Application": {
+      "title": "Application",
+      "description": "Berkas lamaran kandidat untuk lowongan pekerjaan",
+      "type": "object",
+      "properties": {
+        "referenceNumber": { "type": "string", "maxLength": 50 },
+        "jobId": { "type": "string", "maxLength": 128 },
+        "jobTitle": { "type": "string", "maxLength": 150 },
+        "candidateUid": { "type": "string", "maxLength": 128 },
+        "fullName": { "type": "string", "maxLength": 150 },
+        "email": { "type": "string", "maxLength": 150 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "domicile": { "type": "string", "maxLength": 100 },
+        "educationLevel": { "type": "string", "maxLength": 50 },
+        "major": { "type": "string", "maxLength": 150 },
+        "experienceSummary": { "type": "string", "maxLength": 3000 },
+        "skills": { "type": "string", "maxLength": 1500 },
+        "resumeFileName": { "type": "string", "maxLength": 200 },
+        "resumeFileType": { "type": "string", "maxLength": 50 },
+        "resumeFileSize": { "type": "number" },
+        "resumeText": { "type": "string", "maxLength": 50000 },
+        "portfolioUrl": { "type": "string", "maxLength": 500 },
+        "additionalAnswers": { "type": "string", "maxLength": 3000 },
+        "privacyAccepted": { "type": "boolean" },
+        "stage": {
+          "type": "string",
+          "enum": [
+            "Applied",
+            "Screening",
+            "HR Review",
+            "Interview",
+            "Assessment",
+            "User Interview",
+            "Offer",
+            "Hired",
+            "Rejected",
+            "Withdrawn",
+            "Talent Pool"
+          ]
+        },
+        "screeningScore": { "type": "number" },
+        "screeningResultJson": { "type": "string", "maxLength": 10000 },
+        "statusHistory": { "type": "string", "maxLength": 10000 },
+        "internalNotes": { "type": "string", "maxLength": 5000 },
+        "allowReapply": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "isDemo": { "type": "boolean" }
+      },
+      "required": ["referenceNumber", "jobId", "jobTitle", "fullName", "email", "phone", "stage"]
+    },
+    "CandidateProfile": {
+      "title": "CandidateProfile",
+      "description": "Profil akun kandidat pencari kerja",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 150 },
+        "displayName": { "type": "string", "maxLength": 150 },
+        "provider": { "type": "string", "enum": ["google", "password"] },
+        "role": { "type": "string", "enum": ["candidate"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "InterviewSchedule": {
+      "title": "InterviewSchedule",
+      "description": "Jadwal wawancara dan evaluasi kandidat",
+      "type": "object",
+      "properties": {
+        "applicationId": { "type": "string", "maxLength": 128 },
+        "candidateName": { "type": "string", "maxLength": 150 },
+        "jobTitle": { "type": "string", "maxLength": 150 },
+        "interviewDate": { "type": "string", "maxLength": 50 },
+        "interviewTime": { "type": "string", "maxLength": 50 },
+        "timeZone": { "type": "string", "maxLength": 20 },
+        "interviewerName": { "type": "string", "maxLength": 150 },
+        "interviewerEmail": { "type": "string", "maxLength": 150 },
+        "locationType": { "type": "string", "enum": ["online", "offline"] },
+        "meetingLinkOrLocation": { "type": "string", "maxLength": 500 },
+        "notes": { "type": "string", "maxLength": 3000 },
+        "status": { "type": "string", "enum": ["scheduled", "completed", "cancelled"] },
+        "evaluationScore": { "type": "number" },
+        "evaluationNotes": { "type": "string", "maxLength": 3000 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["applicationId", "candidateName", "interviewDate", "interviewTime", "status"]
+    },
+    "EmailLog": {
+      "title": "EmailLog",
+      "description": "Riwayat pengiriman email konfirmasi dan notifikasi",
+      "type": "object",
+      "properties": {
+        "applicationId": { "type": "string", "maxLength": 128 },
+        "candidateName": { "type": "string", "maxLength": 150 },
+        "candidateEmail": { "type": "string", "maxLength": 150 },
+        "jobTitle": { "type": "string", "maxLength": 150 },
+        "subject": { "type": "string", "maxLength": 250 },
+        "status": { "type": "string", "enum": ["sent", "pending", "failed"] },
+        "senderEmail": { "type": "string", "maxLength": 150 },
+        "error": { "type": "string", "maxLength": 1000 },
+        "sentAt": { "type": "string" },
+        "attempts": { "type": "number" }
+      },
+      "required": ["candidateEmail", "subject", "status"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Catatan audit trail untuk seluruh aksi sensitif HRD",
+      "type": "object",
+      "properties": {
+        "action": { "type": "string", "maxLength": 100 },
+        "details": { "type": "string", "maxLength": 2000 },
+        "performedBy": { "type": "string", "maxLength": 150 },
+        "performedByEmail": { "type": "string", "maxLength": 150 },
+        "targetId": { "type": "string", "maxLength": 128 },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["action", "performedBy", "timestamp"]
+    },
+    "SystemSetting": {
+      "title": "SystemSetting",
+      "description": "Konfigurasi sistem, email, dan retensi data",
+      "type": "object",
+      "properties": {
+        "companyName": { "type": "string", "maxLength": 150 },
+        "hrEmail": { "type": "string", "maxLength": 150 },
+        "retentionPeriodMonths": { "type": "number" },
+        "autoSendConfirmation": { "type": "boolean" },
+        "gmailConnectedEmail": { "type": "string", "maxLength": 150 },
+        "gmailLastTestedAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["companyName"]
+    }
+  },
+  "firestore": {
+    "/jobs/{jobId}": {
+      "schema": "Job",
+      "description": "Daftar lowongan pekerjaan PT Semoga Kerja"
+    },
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Lamaran pekerjaan yang masuk"
+    },
+    "/candidates/{candidateId}": {
+      "schema": "CandidateProfile",
+      "description": "Profil akun kandidat pencari kerja"
+    },
+    "/interview_schedules/{scheduleId}": {
+      "schema": "InterviewSchedule",
+      "description": "Jadwal dan evaluasi wawancara kandidat"
+    },
+    "/email_delivery_logs/{logId}": {
+      "schema": "EmailLog",
+      "description": "Log pengiriman email konfirmasi dan status"
+    },
+    "/audit_logs/{auditId}": {
+      "schema": "AuditLog",
+      "description": "Audit trail aksi pengguna dan administrator"
+    },
+    "/system_settings/{settingId}": {
+      "schema": "SystemSetting",
+      "description": "Konfigurasi sistem global"
+    },
+    "/admins/{adminId}": {
+      "schema": "SystemSetting",
+      "description": "Daftar akun berwenang admin/HRD"
+    }
+  }
+}

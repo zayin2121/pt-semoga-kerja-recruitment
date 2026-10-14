@@ -1,0 +1,6 @@
+{
+  "name": "PT Semoga Kerja Recruitment Management System",
+  "description": "Sistem Manajemen Rekrutmen & ATS Terintegrasi PT Semoga Kerja. Portal Karir Publik, CV Screening Otomatis, dan Dashboard HRD.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
